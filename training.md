@@ -57,3 +57,45 @@ public:
 
 
 #### 2、[相交链表（easy）](https://leetcode.cn/problems/intersection-of-two-linked-lists/description/)
+这个也是有多种解法，但是还是最容易想到O(n2)的解法。为了训练能有更好的思维方式，所以选择最优雅的解法。那么这里对于两个**链表相交**，可以做假设：
+1、若相交:链表A = a + c,链表B = b + c  （c为公共长度）
+则 
+<div style="text-align: center;">(a+c)+(b+c) = (b+c)+(a+c) &emsp;&emsp;&emsp; //两人走的长度是相同的，所以会在相交点相遇。
+</div>
+2、若不相交：
+
+则 
+<div style="text-align: center;">a+b =b+a   &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; //相当于他们的相交点是null，所以会在null处“相遇”
+</div>
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if (headA == nullptr || headB == nullptr)
+            return nullptr;
+        ListNode *pa = headA,*pb = headB;
+        while(pa != pb){
+            if(pa == nullptr)
+                pa = headB;
+            else
+                pa = pa->next;
+            if(pb == nullptr)
+                pb = headA;
+            else
+                pb = pb->next;
+            
+        }
+
+        return pa;
+    }
+};
+```
